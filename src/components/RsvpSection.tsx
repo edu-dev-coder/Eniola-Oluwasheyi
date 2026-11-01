@@ -175,15 +175,15 @@ export const RsvpSection: React.FC<RsvpSectionProps> = ({ onRsvpAdded, onOpenSec
 
   return (
     <section id="rsvp" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#240408] text-white relative overflow-hidden">
-      {/* Background Image Texture */}
+      {/* Background Image Texture with Enhanced Visibility */}
       <div className="absolute inset-0 z-0">
         <img
           src="./photos/studio-suit-shoulders.jpg"
           alt="Studio Background"
-          className="w-full h-full object-cover object-center opacity-15 filter grayscale"
+          className="w-full h-full object-cover object-center opacity-35 filter brightness-[0.8] contrast-[1.05]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#240408] via-[#380A11]/90 to-[#240408]"></div>
-        <div className="absolute inset-0 wine-pattern opacity-30 mix-blend-overlay"></div>
+        <div className="absolute inset-0 bg-gradient-to-b from-[#240408] via-[#380A11]/70 to-[#240408]"></div>
+        <div className="absolute inset-0 wine-pattern opacity-20 mix-blend-overlay"></div>
       </div>
 
       <div className="max-w-4xl mx-auto relative z-10">

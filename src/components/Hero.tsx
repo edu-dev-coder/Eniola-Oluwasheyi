@@ -62,18 +62,16 @@ END:VCALENDAR`;
 
   return (
     <section className="relative min-h-[100svh] flex items-center justify-center pt-28 pb-20 px-4 sm:px-6 overflow-hidden bg-[#240408]">
-      {/* Background Hero Picture with Deep Wine & Amber Gradient Overlays */}
+      {/* Background Hero Picture with Enhanced Visibility */}
       <div className="absolute inset-0 z-0">
         <img
           src="./photos/outdoor-umbrella.jpg"
           alt="Eniola & Oluwaseyi #DesignersMeet"
-          className="w-full h-full object-cover object-center filter brightness-[0.65] contrast-[1.08] scale-105 transform animate-pulse duration-[14000ms]"
+          className="w-full h-full object-cover object-center filter brightness-[0.88] contrast-[1.05]"
         />
-        {/* Multilayered Luxury Gradients for Maximum Legibility and Drama */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#240408] via-[#380A11]/75 to-black/85"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-[#240408]/90 via-transparent to-[#240408]/90"></div>
-        {/* Subtle royal pattern */}
-        <div className="absolute inset-0 wine-pattern opacity-30 mix-blend-overlay"></div>
+        {/* Balanced Luxury Gradients - allows the couple's photo to shine clearly while keeping text crisp */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#240408]/70 via-[#240408]/30 to-[#240408]"></div>
+        <div className="absolute inset-0 bg-radial from-transparent via-black/20 to-[#240408]/70"></div>
       </div>
 
       <div className="relative z-10 max-w-5xl mx-auto text-center flex flex-col items-center">
@@ -95,17 +93,17 @@ END:VCALENDAR`;
         </div>
 
         {/* Honor to Parents Request */}
-        <p className="text-stone-300 text-xs sm:text-sm md:text-base max-w-2xl font-serif-luxury italic tracking-wide mb-3 leading-relaxed">
+        <p className="text-stone-200 text-xs sm:text-sm md:text-base max-w-2xl font-serif-luxury italic tracking-wide mb-3 leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] bg-black/35 sm:bg-transparent px-3 py-1 rounded-xl">
           The families of <span className="text-[#F5E19A] font-semibold">Elder &amp; Deaconess B.J Falola</span> and{' '}
           <span className="text-[#F5E19A] font-semibold">Late Senior Apostle &amp; Mrs Joshua Adebiyi</span> joyfully request the honour of your presence at the Holy Matrimony of their beloved children
         </p>
 
         {/* Main Couple Names */}
-        <h1 className="font-serif-luxury text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-none my-2 drop-shadow-2xl">
+        <h1 className="font-serif-luxury text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight leading-none my-2 drop-shadow-[0_4px_16px_rgba(0,0,0,0.95)]">
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#F5E19A] to-[#D4AF37]">
             ENIOLA
           </span>
-          <span className="block sm:inline font-script-luxury text-4xl sm:text-5xl md:text-6xl text-[#D97724] mx-3">
+          <span className="block sm:inline font-script-luxury text-4xl sm:text-5xl md:text-6xl text-[#D97724] mx-3 drop-shadow">
             &amp;
           </span>
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#F5E19A] to-white">
@@ -114,7 +112,7 @@ END:VCALENDAR`;
         </h1>
 
         {/* Full Formal Names */}
-        <p className="text-[#EFE3D5] text-xs sm:text-sm tracking-widest uppercase font-mono font-medium mt-1 mb-6">
+        <p className="text-[#F5E19A] text-xs sm:text-sm tracking-widest uppercase font-mono font-medium mt-1 mb-6 drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
           Falola Abisola Eniola &amp; Adebiyi Peter Oluwaseyi
         </p>
 
