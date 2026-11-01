@@ -1,6 +1,16 @@
 import type { GuestRSVP, WeddingWish } from '../types/wedding';
 import { INITIAL_RSVPS, INITIAL_PRAYERS } from '../data/weddingData';
 import {
+  isFirebaseConfigured,
+  fetchFirestoreWishes,
+  insertFirestoreWish,
+  incrementFirestoreWishReaction,
+  fetchFirestoreRSVPs,
+  insertFirestoreRSVP,
+  updateFirestoreCheckIn,
+  deleteFirestoreRSVP,
+} from './firebase';
+import {
   isSupabaseConfigured,
   fetchRemoteWishes,
   insertRemoteWish,
@@ -45,8 +55,12 @@ export function saveRSVP(rsvp: GuestRSVP): GuestRSVP[] {
     const updated = [rsvp, ...filtered];
     localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(updated));
 
-    // Asynchronously push to Supabase cloud
-    if (isSupabaseConfigured) {
+    // Asynchronously push to Cloud
+    if (isFirebaseConfigured) {
+      insertFirestoreRSVP(rsvp).catch((err) =>
+        console.warn('Background Firebase RSVP sync error:', err)
+      );
+    } else if (isSupabaseConfigured) {
       insertRemoteRSVP(rsvp).catch((err) =>
         console.warn('Background Supabase RSVP sync error:', err)
       );
@@ -65,7 +79,11 @@ export function deleteRSVP(id: string): GuestRSVP[] {
     const updated = current.filter((r) => r.id !== id);
     localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(updated));
 
-    if (isSupabaseConfigured) {
+    if (isFirebaseConfigured) {
+      deleteFirestoreRSVP(id).catch((err) =>
+        console.warn('Background Firebase RSVP delete error:', err)
+      );
+    } else if (isSupabaseConfigured) {
       deleteRemoteRSVP(id).catch((err) =>
         console.warn('Background Supabase RSVP delete error:', err)
       );
@@ -97,8 +115,12 @@ export function saveWish(wish: WeddingWish): WeddingWish[] {
     const updated = [wish, ...current];
     localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(updated));
 
-    // Asynchronously push to Supabase cloud
-    if (isSupabaseConfigured) {
+    // Asynchronously push to Cloud
+    if (isFirebaseConfigured) {
+      insertFirestoreWish(wish).catch((err) =>
+        console.warn('Background Firebase wish sync error:', err)
+      );
+    } else if (isSupabaseConfigured) {
       insertRemoteWish(wish).catch((err) =>
         console.warn('Background Supabase wish sync error:', err)
       );
@@ -124,7 +146,11 @@ export function toggleWishReaction(wishId: string): WeddingWish[] {
     });
     localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(updated));
 
-    if (isSupabaseConfigured) {
+    if (isFirebaseConfigured) {
+      incrementFirestoreWishReaction(wishId).catch((err) =>
+        console.warn('Background Firebase reaction sync error:', err)
+      );
+    } else if (isSupabaseConfigured) {
       incrementRemoteWishReaction(wishId, newReactions).catch((err) =>
         console.warn('Background Supabase reaction sync error:', err)
       );
@@ -137,64 +163,113 @@ export function toggleWishReaction(wishId: string): WeddingWish[] {
 }
 
 /**
- * Sync wishes from Supabase cloud database, merging with local storage
+ * Sync wishes from Cloud database (Firebase or Supabase)
  */
 export async function syncRemoteWishes(): Promise<WeddingWish[]> {
   const local = getStoredWishes();
-  if (!isSupabaseConfigured) return local;
 
-  const remote = await fetchRemoteWishes();
-  if (!remote || remote.length === 0) {
-    // If remote is empty, seed remote with local wishes
-    if (local.length > 0) {
-      for (const wish of local) {
-        insertRemoteWish(wish).catch(() => {});
+  if (isFirebaseConfigured) {
+    const remote = await fetchFirestoreWishes();
+    if (!remote || remote.length === 0) {
+      if (local.length > 0) {
+        for (const wish of local) {
+          insertFirestoreWish(wish).catch(() => {});
+        }
       }
+      return local;
     }
-    return local;
+
+    const remoteIds = new Set(remote.map((r) => r.id));
+    const unpushedLocal = local.filter((l) => !remoteIds.has(l.id));
+
+    for (const item of unpushedLocal) {
+      insertFirestoreWish(item).catch(() => {});
+    }
+
+    const merged = [...remote, ...unpushedLocal];
+    localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(merged));
+    return merged;
   }
 
-  // Merge remote and local (remote takes precedence by id)
-  const remoteIds = new Set(remote.map((r) => r.id));
-  const unpushedLocal = local.filter((l) => !remoteIds.has(l.id));
+  if (isSupabaseConfigured) {
+    const remote = await fetchRemoteWishes();
+    if (!remote || remote.length === 0) {
+      if (local.length > 0) {
+        for (const wish of local) {
+          insertRemoteWish(wish).catch(() => {});
+        }
+      }
+      return local;
+    }
 
-  // Push unpushed local to remote
-  for (const item of unpushedLocal) {
-    insertRemoteWish(item).catch(() => {});
+    const remoteIds = new Set(remote.map((r) => r.id));
+    const unpushedLocal = local.filter((l) => !remoteIds.has(l.id));
+
+    for (const item of unpushedLocal) {
+      insertRemoteWish(item).catch(() => {});
+    }
+
+    const merged = [...remote, ...unpushedLocal];
+    localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(merged));
+    return merged;
   }
 
-  const merged = [...remote, ...unpushedLocal];
-  localStorage.setItem(WISHES_STORAGE_KEY, JSON.stringify(merged));
-  return merged;
+  return local;
 }
 
 /**
- * Sync RSVPs from Supabase cloud database, merging with local storage
+ * Sync RSVPs from Cloud database (Firebase or Supabase)
  */
 export async function syncRemoteRSVPs(): Promise<GuestRSVP[]> {
   const local = getStoredRSVPs();
-  if (!isSupabaseConfigured) return local;
 
-  const remote = await fetchRemoteRSVPs();
-  if (!remote || remote.length === 0) {
-    if (local.length > 0) {
-      for (const r of local) {
-        insertRemoteRSVP(r).catch(() => {});
+  if (isFirebaseConfigured) {
+    const remote = await fetchFirestoreRSVPs();
+    if (!remote || remote.length === 0) {
+      if (local.length > 0) {
+        for (const r of local) {
+          insertFirestoreRSVP(r).catch(() => {});
+        }
       }
+      return local;
     }
-    return local;
+
+    const remoteCodes = new Set(remote.map((r) => r.passCode.toUpperCase()));
+    const unpushedLocal = local.filter((l) => !remoteCodes.has(l.passCode.toUpperCase()));
+
+    for (const item of unpushedLocal) {
+      insertFirestoreRSVP(item).catch(() => {});
+    }
+
+    const merged = [...remote, ...unpushedLocal];
+    localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(merged));
+    return merged;
   }
 
-  const remoteCodes = new Set(remote.map((r) => r.passCode.toUpperCase()));
-  const unpushedLocal = local.filter((l) => !remoteCodes.has(l.passCode.toUpperCase()));
+  if (isSupabaseConfigured) {
+    const remote = await fetchRemoteRSVPs();
+    if (!remote || remote.length === 0) {
+      if (local.length > 0) {
+        for (const r of local) {
+          insertRemoteRSVP(r).catch(() => {});
+        }
+      }
+      return local;
+    }
 
-  for (const item of unpushedLocal) {
-    insertRemoteRSVP(item).catch(() => {});
+    const remoteCodes = new Set(remote.map((r) => r.passCode.toUpperCase()));
+    const unpushedLocal = local.filter((l) => !remoteCodes.has(l.passCode.toUpperCase()));
+
+    for (const item of unpushedLocal) {
+      insertRemoteRSVP(item).catch(() => {});
+    }
+
+    const merged = [...remote, ...unpushedLocal];
+    localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(merged));
+    return merged;
   }
 
-  const merged = [...remote, ...unpushedLocal];
-  localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(merged));
-  return merged;
+  return local;
 }
 
 export function exportRSVPToCSV(rsvps: GuestRSVP[]): void {
@@ -252,10 +327,16 @@ export function toggleCheckIn(
 
     localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(updatedList));
 
-    if (isSupabaseConfigured && targetRSVP) {
-      updateRemoteCheckIn((targetRSVP as GuestRSVP).id, Boolean((targetRSVP as GuestRSVP).checkedIn), (targetRSVP as GuestRSVP).checkedInAt).catch((err) =>
-        console.warn('Background Supabase check-in error:', err)
-      );
+    if (targetRSVP) {
+      if (isFirebaseConfigured) {
+        updateFirestoreCheckIn((targetRSVP as GuestRSVP).id, Boolean((targetRSVP as GuestRSVP).checkedIn), (targetRSVP as GuestRSVP).checkedInAt).catch((err) =>
+          console.warn('Background Firebase check-in error:', err)
+        );
+      } else if (isSupabaseConfigured) {
+        updateRemoteCheckIn((targetRSVP as GuestRSVP).id, Boolean((targetRSVP as GuestRSVP).checkedIn), (targetRSVP as GuestRSVP).checkedInAt).catch((err) =>
+          console.warn('Background Supabase check-in error:', err)
+        );
+      }
     }
 
     return { updatedList, rsvp: targetRSVP };

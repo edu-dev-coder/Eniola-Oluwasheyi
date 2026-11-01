@@ -25,6 +25,11 @@ import {
   syncRemoteRSVPs
 } from './utils/storage';
 import { supabase, isSupabaseConfigured } from './utils/supabase';
+import {
+  isFirebaseConfigured,
+  subscribeToFirestoreWishes,
+  subscribeToFirestoreRSVPs,
+} from './utils/firebase';
 
 export function App() {
   const [rsvps, setRsvps] = useState<GuestRSVP[]>(() => getStoredRSVPs());
@@ -54,6 +59,20 @@ export function App() {
         setRsvps(syncedRSVPs);
       }
     });
+
+    // Realtime subscription if Firebase is active
+    if (isFirebaseConfigured) {
+      const unsubWishes = subscribeToFirestoreWishes((list) => {
+        if (list && list.length > 0) setWishes(list);
+      });
+      const unsubRSVPs = subscribeToFirestoreRSVPs((list) => {
+        if (list && list.length > 0) setRsvps(list);
+      });
+      return () => {
+        if (unsubWishes) unsubWishes();
+        if (unsubRSVPs) unsubRSVPs();
+      };
+    }
 
     // Realtime subscription if Supabase is active
     if (isSupabaseConfigured && supabase) {
