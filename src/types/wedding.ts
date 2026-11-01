@@ -37,6 +37,8 @@ export interface GuestRSVP {
   songRequest?: string;
   passCode: string;
   createdAt: string;
+  checkedIn?: boolean;
+  checkedInAt?: string;
 }
 
 export interface WeddingWish {

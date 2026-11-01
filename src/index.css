@@ -5,6 +5,18 @@
     --font-serif: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
     --font-script: 'Alex Brush', 'Great Vibes', cursive;
     --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+    /* Theme Primary Colors (#DesignersMeet) */
+    --color-wine-dark: #240408;
+    --color-wine-base: #380A11;
+    --color-wine-light: #52131D;
+    
+    --color-chocolate: #3D1E16;
+    --color-walnut: #5C3322;
+    --color-amber: #D97724;
+    --color-burnt-orange: #C85023;
+    --color-beige: #EFE3D5;
+    --color-gold: #D4AF37;
   }
 }
 
@@ -20,29 +32,45 @@
   font-family: var(--font-sans);
 }
 
-/* Luxury Igbo & Nigerian Wedding Theme Accents */
+/* Luxury Royal Palette Gradients */
 .gold-gradient-text {
-  background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA771C 100%);
+  background: linear-gradient(135deg, #F8E7B2 0%, #D4AF37 50%, #B8860B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
+.amber-gradient-text {
+  background: linear-gradient(135deg, #FAD6A5 0%, #D97724 50%, #C85023 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.wine-gradient-bg {
+  background: linear-gradient(145deg, #380A11 0%, #240408 100%);
+}
+
+.chocolate-gradient-bg {
+  background: linear-gradient(145deg, #5C3322 0%, #3D1E16 100%);
+}
+
 .gold-gradient-bg {
-  background: linear-gradient(135deg, #ECC867 0%, #D4AF37 50%, #9D6F17 100%);
+  background: linear-gradient(135deg, #F5E19A 0%, #D4AF37 50%, #A87C16 100%);
 }
 
-.emerald-gradient-bg {
-  background: linear-gradient(145deg, #0D4A30 0%, #062819 100%);
-}
-
-.coral-accent {
-  color: #E2583E;
+.amber-gradient-bg {
+  background: linear-gradient(135deg, #E88E3E 0%, #D97724 50%, #C85023 100%);
 }
 
 /* Royal Pattern Overlays */
-.igbo-pattern {
-  background-color: #0A3824;
-  background-image: radial-gradient(rgba(212, 175, 55, 0.15) 1px, transparent 0);
+.wine-pattern {
+  background-color: #380A11;
+  background-image: radial-gradient(rgba(212, 175, 55, 0.16) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.chocolate-pattern {
+  background-color: #3D1E16;
+  background-image: radial-gradient(rgba(217, 119, 36, 0.15) 1px, transparent 0);
   background-size: 24px 24px;
 }
 
@@ -56,20 +84,20 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF7F2;
+  background: #240408;
 }
 ::-webkit-scrollbar-thumb {
   background: #D4AF37;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #AA771C;
+  background: #D97724;
 }
 
 /* Animations */
 @keyframes floatSlow {
   0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-8px) rotate(1deg); }
+  50% { transform: translateY(-8px) rotate(0.8deg); }
 }
 
 .animate-float {
@@ -78,7 +106,7 @@
 
 @keyframes pulseGlow {
   0%, 100% { opacity: 0.6; transform: scale(1); }
-  50% { opacity: 0.9; transform: scale(1.03); }
+  50% { opacity: 0.95; transform: scale(1.02); }
 }
 
 .animate-glow {

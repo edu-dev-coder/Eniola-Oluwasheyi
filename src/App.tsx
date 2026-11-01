@@ -1,15 +1,15 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Story } from './components/Story';
 import { EventsProgram } from './components/EventsProgram';
 import { RsvpSection } from './components/RsvpSection';
-import { GuestRegistry } from './components/GuestRegistry';
 import { GiftRegistry } from './components/GiftRegistry';
 import { WishesPrayers } from './components/WishesPrayers';
 import { WeddingParty } from './components/WeddingParty';
 import { FaqSection } from './components/FaqSection';
 import { PlannerModal } from './components/PlannerModal';
+import { SecurityGateModal } from './components/SecurityGateModal';
 import { Footer } from './components/Footer';
 
 import type { GuestRSVP, WeddingWish } from './types/wedding';
@@ -17,6 +17,7 @@ import {
   getStoredRSVPs,
   saveRSVP,
   deleteRSVP,
+  toggleCheckIn,
   getStoredWishes,
   saveWish,
   toggleWishReaction
@@ -26,6 +27,18 @@ export function App() {
   const [rsvps, setRsvps] = useState<GuestRSVP[]>(() => getStoredRSVPs());
   const [wishes, setWishes] = useState<WeddingWish[]>(() => getStoredWishes());
   const [isPlannerOpen, setIsPlannerOpen] = useState(false);
+  const [securityGateCode, setSecurityGateCode] = useState<string | null>(null);
+  const [isSecurityGateOpen, setIsSecurityGateOpen] = useState(false);
+
+  useEffect(() => {
+    // Check if bouncer or guest opened link with ?verify=PASSCODE or ?code=PASSCODE
+    const params = new URLSearchParams(window.location.search);
+    const verifyParam = params.get('verify') || params.get('code');
+    if (verifyParam) {
+      setSecurityGateCode(verifyParam.trim().toUpperCase());
+      setIsSecurityGateOpen(true);
+    }
+  }, []);
 
   const handleRSVPSubmit = (newRsvp: GuestRSVP) => {
     const updated = saveRSVP(newRsvp);
@@ -35,6 +48,16 @@ export function App() {
   const handleDeleteRSVP = (id: string) => {
     const updated = deleteRSVP(id);
     setRsvps(updated);
+  };
+
+  const handleToggleCheckIn = (idOrPassCode: string) => {
+    const { updatedList } = toggleCheckIn(idOrPassCode);
+    setRsvps(updatedList);
+  };
+
+  const handleOpenSecurityGate = (code?: string) => {
+    setSecurityGateCode(code ? code.trim().toUpperCase() : null);
+    setIsSecurityGateOpen(true);
   };
 
   const handleAddWish = (wishData: Omit<WeddingWish, 'id' | 'createdAt' | 'reactions'>) => {
@@ -63,6 +86,7 @@ export function App() {
       {/* Sticky Header Navigation */}
       <Navbar
         onOpenPlanner={() => setIsPlannerOpen(true)}
+        onOpenSecurityGate={() => handleOpenSecurityGate()}
         guestCount={attendingHeadcount}
       />
 
@@ -76,11 +100,11 @@ export function App() {
         {/* Program of Events: Traditional & White Wedding */}
         <EventsProgram />
 
-        {/* RSVP & Instant Digital Entry VIP Pass */}
-        <RsvpSection onRsvpAdded={handleRSVPSubmit} />
-
-        {/* Digital Guest Registry of Confirmed Attendees */}
-        <GuestRegistry rsvps={rsvps} />
+        {/* RSVP & Instant Digital Entry VIP Pass with PDF & QR Code */}
+        <RsvpSection
+          onRsvpAdded={handleRSVPSubmit}
+          onOpenSecurityGate={handleOpenSecurityGate}
+        />
 
         {/* Curated Registry Wishlist & Direct Bank Account Numbers */}
         <GiftRegistry />
@@ -100,7 +124,10 @@ export function App() {
       </main>
 
       {/* Royal Footer */}
-      <Footer onOpenPlanner={() => setIsPlannerOpen(true)} />
+      <Footer
+        onOpenPlanner={() => setIsPlannerOpen(true)}
+        onOpenSecurityGate={() => handleOpenSecurityGate()}
+      />
 
       {/* Wedding Planner & Catering Portal Modal */}
       <PlannerModal
@@ -108,6 +135,18 @@ export function App() {
         onClose={() => setIsPlannerOpen(false)}
         rsvps={rsvps}
         onDeleteRSVP={handleDeleteRSVP}
+        onToggleCheckIn={handleToggleCheckIn}
+      />
+
+      {/* Security Gate QR Verification Terminal Modal */}
+      <SecurityGateModal
+        isOpen={isSecurityGateOpen}
+        initialCode={securityGateCode}
+        onClose={() => {
+          setIsSecurityGateOpen(false);
+          setSecurityGateCode(null);
+        }}
+        onCheckInChanged={() => setRsvps(getStoredRSVPs())}
       />
     </div>
   );

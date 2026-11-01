@@ -1,25 +1,35 @@
-import type { WeddingEvent, LoveStoryMilestone, GiftItem, BankAccountDetails, WeddingWish, GuestRSVP } from '../types/wedding';
+import type { WeddingEvent, GiftItem, BankAccountDetails, WeddingWish, GuestRSVP } from '../types/wedding';
 
 export const WEDDING_COUPLE = {
   groom: {
-    fullName: "Melvin Chukwudi Okafor",
-    shortName: "Melvin",
+    fullName: "Adebiyi Peter Oluwaseyi",
+    shortName: "Oluwaseyi",
     title: "The Groom",
-    parents: "Mr. & Mrs. Kenneth Okafor of Umunze, Anambra State",
-    bio: "An architect with a passion for creative design, jazz, and traditional highlife music. Captured by Chidimma's radiant grace.",
+    parents: "Late Senior Apostle & Mrs Joshua Adebiyi",
+    profession: "Creative Fashion & Lifestyle Designer",
+    quote: "Finding Eniola is finding the masterstroke that completed my life's canvas.",
   },
   bride: {
-    fullName: "Chidimma Precious Eze",
-    shortName: "Chidimma",
+    fullName: "Falola Abisola Eniola",
+    shortName: "Eniola",
     title: "The Bride",
-    parents: "Chief & Lolo Emmanuel Eze (Nwannedinamba 1 of Enugwu-Ukwu)",
-    bio: "A healthcare professional and culinary enthusiast who lights up every room she steps into with her radiant warmth and faith.",
+    parents: "Elder & Deaconess B.J Falola",
+    profession: "Couture Fashion & Brand Designer",
+    quote: "With Oluwaseyi, love feels intentional, beautifully tailored, and divinely ordained.",
   },
-  hashtag: "#MELWED2026",
-  monogram: "M & C",
-  dateSummary: "December 18 & 20, 2026",
-  countdownTarget: "2026-12-18T10:00:00",
-  welcomeMessage: "Nnoo nu! Igbo Kwenu! We warmly invite you to share in the joyful union of our hearts and families as we become one under God's grace and ancestral blessing.",
+  hashtag: "#DesignersMeet",
+  monogram: "E & O",
+  dateSummary: "Saturday, November 7, 2026",
+  countdownTarget: "2026-11-07T11:00:00",
+  ceremonyTime: "11:00 AM Prompt",
+  venueName: "JJ & Jaz Event Center",
+  venueAddress: "Taoheed Road, Basin",
+  venueCity: "Ilorin, Kwara State",
+  welcomeMessage: "E kaabo! Together with our families, Elder & Deaconess B.J Falola and Late Senior Apostle & Mrs Joshua Adebiyi, we joyfully invite you to witness our holy matrimony and celebrate the union of two visionary designers becoming one in Christ.",
+  rsvpContacts: [
+    { name: "Queen", phone: "08163186020", tel: "+2348163186020" },
+    { name: "Bode", phone: "08176498609", tel: "+2348176498609" }
+  ]
 };
 
 export const COUPLE_DETAILS = {
@@ -29,290 +39,310 @@ export const COUPLE_DETAILS = {
   monogram: WEDDING_COUPLE.monogram,
 };
 
+export const WEDDING_COLORS = [
+  { name: 'Chocolate Brown', hex: '#3D1E16', description: 'Rich, grounding elegance for bespoke suits and velvet accents.' },
+  { name: 'Walnut Brown', hex: '#5C3322', description: 'Earthy warmth reflecting heritage, strength, and classic tradition.' },
+  { name: 'Amber', hex: '#D97724', description: 'Luminous sunset golden-orange symbolizing joy, warmth, and vitality.' },
+  { name: 'Burnt Orange', hex: '#C85023', description: 'Vibrant celebratory energy representing passion and royalty.' },
+  { name: 'Beige', hex: '#EFE3D5', description: 'Refined neutral champagne-cream tying the warm autumn palette together.' }
+];
+
 export const WEDDING_EVENTS: WeddingEvent[] = [
   {
     id: 'traditional',
-    title: 'Traditional Wedding Ceremony',
-    nativeTitle: 'Igba Nkwu Nwanyi (Wine Carrying Ceremony)',
-    date: 'Friday, December 18, 2026',
-    formattedDate: 'Dec 18, 2026',
-    time: '12:00 PM Prompt',
-    venueName: "Chief Eze's Royal Ancestral Estate",
-    venueAddress: 'Plot 14 Chief Emmanuel Eze Crescent, Off Bisalla Road, Independence Layout',
-    city: 'Enugu, Nigeria',
-    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126868.58619623725!2d7.420658469857943!3d6.444265147822989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1044a3d6f1bf811d%3A0xb563038676bf03be!2sIndependence%20Layout%2C%20Enugu!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng',
-    googleMapsDirectionsUrl: 'https://maps.google.com/?q=Independence+Layout+Enugu+Nigeria',
-    dressCode: 'Royal Igbo Regal Splendor: Emerald Green George or Lace, accented with Rich Coral Beads (Iyin) and Gold Gele/Cap.',
-    colorPalette: [
-      { name: 'Emerald Velvet', hex: '#0A3824' },
-      { name: 'Champagne Gold', hex: '#D4AF37' },
-      { name: 'Coral Regal', hex: '#E2583E' },
-      { name: 'Warm Ivory', hex: '#FDFBF7' }
-    ],
+    title: 'Engagement Ceremony & Holy Matrimony',
+    nativeTitle: 'Alaga Ijoko & Alaga Iduro Nuptial Rites',
+    date: 'Saturday, November 7, 2026',
+    formattedDate: 'Nov 07, 2026',
+    time: '11:00 AM Prompt',
+    venueName: 'JJ & Jaz Event Center',
+    venueAddress: 'Taoheed Road, Basin',
+    city: 'Ilorin, Kwara State',
+    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3946.0!2d4.55!3d8.48!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMjgnNDguMCJOIDTCsDMzJzAwLjAiRQ!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng',
+    googleMapsDirectionsUrl: 'https://maps.google.com/?q=JJ+and+Jaz+Event+Center+Taoheed+Road+Basin+Ilorin+Kwara+State',
+    dressCode: 'Royal Elegance: Chocolate Brown, Walnut Brown, Amber, Burnt Orange, or Warm Beige. Aso-Ebi & native couture highly celebrated.',
+    colorPalette: WEDDING_COLORS,
     itinerary: [
       {
-        time: '12:00 PM',
-        title: 'Arrival of Guests & Ogene Highlife Melodies',
-        description: 'Warm welcome of in-laws, elders, and cherished friends with traditional palm wine and flute sounds.'
+        time: '11:00 AM',
+        title: 'Arrival of Distinguished Guests & Classical Strings',
+        description: 'Warm welcome of elders, in-laws, colleagues, and esteemed guests with chilled refreshments and red carpet entry.'
+      },
+      {
+        time: '11:30 AM',
+        title: 'Welcome Address & Traditional Opening Prayers',
+        description: 'Opening prayers giving reverence to God Almighty for the union of the Falola and Adebiyi families.'
+      },
+      {
+        time: '12:15 PM',
+        title: 'Presentation of Proposal & Acceptance Letters',
+        description: 'The ancient cultural dialogue between Alaga Ijoko and Alaga Iduro, presenting the official letter of marriage.'
       },
       {
         time: '01:00 PM',
-        title: 'Iwa Oji (Blessing & Breaking of Kola Nut)',
-        description: 'The cultural foundation of Igbo hospitality: prayers for long life, prosperity, and peace from the elders.'
+        title: 'The Dazzling Entrance of the Bride (Eniola)',
+        description: 'Abisola Eniola steps in with her radiant bridal squad, paying homage to her parents and in-laws.'
       },
       {
-        time: '02:00 PM',
-        title: 'First Outing of the Bride',
-        description: 'Chidimma makes her dazzling maiden entrance accompanied by her Ada-Ukwu maidens to greet the in-laws.'
+        time: '01:45 PM',
+        title: 'Engagement Rites & Nuptial Blessing',
+        description: 'Presentation of symbolic gifts, holy bible, honey, and kola nut signifying sweet and fruitful living.'
+      },
+      {
+        time: '02:30 PM',
+        title: 'Grand Entrance of the Groom (Oluwaseyi)',
+        description: 'Adebiyi Peter Oluwaseyi makes his grand entrance flanked by his sharp groomsmen to claim his queen.'
       },
       {
         time: '03:15 PM',
-        title: 'Igba Nkwu (The Sacred Wine Carrying)',
-        description: 'Her father gives her a cup of fresh palm wine to search the crowd, find Melvin, offer him the cup, and seal the union!'
+        title: 'Unveiling, Exchange of Rings & Marital Vows',
+        description: 'Lifting the bridal veil, sealing promises, and joint declaration as husband and wife.'
       },
       {
-        time: '04:30 PM',
-        title: 'Nuptial Dance & Celebration of Love',
-        description: 'Royal couple dance, celebratory showers of blessings, authentic Igbo delicacies, and live highlife band.'
+        time: '04:00 PM - Late',
+        title: 'Grand Reception Banquet & #DesignersMeet After-Party',
+        description: 'Cutting of the master-crafted cake, couple dance, sumptuous buffet, and music by top Afrobeats & live band.'
       }
     ],
     importantNotes: [
-      'Valet parking and security personnel on site.',
-      'Aso-Ebi pickup booth is open near the main foyer.',
-      'Cash spray etiquette: Currency exchange booth available at the reception entrance.'
+      'Admission is strictly with your Digital VIP Pass QR Code.',
+      'Valet parking and uniform security personnel stationed at the gate.',
+      'Color Palette: Chocolate Brown, Walnut Brown, Amber, Burnt Orange, Beige.'
     ]
   },
   {
     id: 'white',
-    title: 'Holy Matrimony & Grand Reception',
-    nativeTitle: 'Church Blessing & Royal Banquet',
-    date: 'Sunday, December 20, 2026',
-    formattedDate: 'Dec 20, 2026',
-    time: '10:00 AM Prompt (Church) | 01:30 PM (Reception)',
-    venueName: 'Holy Ghost Cathedral & The Monarch Grand Ballroom',
-    venueAddress: 'Cathedral: Ogui Road | Reception: The Monarch Palace Ballroom, Presidential Road',
-    city: 'Enugu, Nigeria',
-    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63434.29321743818!2d7.473539821679687!3d6.444265100000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1044a3e74b2fb41f%3A0xe54ef5f6f89ef7dc!2sHoly%20Ghost%20Cathedral%2C%20Enugu!5e0!3m2!1sen!2sng!4v1700000000001!5m2!1sen!2sng',
-    googleMapsDirectionsUrl: 'https://maps.google.com/?q=Holy+Ghost+Cathedral+Enugu+Nigeria',
-    dressCode: 'Black Tie Glamour / Modern African Haute Couture. Colors: Champagne Gold, Forest Emerald & Pearls.',
-    colorPalette: [
-      { name: 'Royal Gold', hex: '#D4AF37' },
-      { name: 'Forest Green', hex: '#0D4A30' },
-      { name: 'Pure Pearl', hex: '#FFFFFF' },
-      { name: 'Midnight Onyx', hex: '#1A1A1A' }
-    ],
+    title: 'Grand Reception & Celebration Dinner',
+    nativeTitle: 'Royal Banquet & Designers Celebration',
+    date: 'Saturday, November 7, 2026',
+    formattedDate: 'Nov 07, 2026',
+    time: '03:30 PM Prompt',
+    venueName: 'JJ & Jaz Event Center Ballroom',
+    venueAddress: 'Taoheed Road, Basin',
+    city: 'Ilorin, Kwara State',
+    mapEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3946.0!2d4.55!3d8.48!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMjgnNDguMCJOIDTCsDMzJzAwLjAiRQ!5e0!3m2!1sen!2sng!4v1700000000000!5m2!1sen!2sng',
+    googleMapsDirectionsUrl: 'https://maps.google.com/?q=JJ+and+Jaz+Event+Center+Taoheed+Road+Basin+Ilorin+Kwara+State',
+    dressCode: 'Black Tie Glamour / Haute Couture Native. Accentuated in Amber, Walnut Brown, & Warm Beige.',
+    colorPalette: WEDDING_COLORS,
     itinerary: [
       {
-        time: '10:00 AM',
-        title: 'Solemnization of Holy Matrimony',
-        description: 'Exchange of sacred marital vows and rings at the Cathedral altar in the presence of God and witnesses.'
+        time: '03:30 PM',
+        title: 'Red Carpet & Cocktail Hour',
+        description: 'Signature mocktails, gourmet small chops, and luxury 360 photo booth experience for all attendees.'
       },
       {
-        time: '12:30 PM',
-        title: 'Couple & Family Photo Session',
-        description: 'Scenic garden photography session with the bridal train and parents.'
+        time: '04:15 PM',
+        title: 'Newlyweds Grand First Dance',
+        description: 'Eniola & Oluwaseyi step onto the illuminated dancefloor for their celebratory royal dance.'
       },
       {
-        time: '01:30 PM',
-        title: 'Cocktail Hour & Red Carpet',
-        description: 'Signature mocktails, small chops, and photo-booth moments at the Monarch Ballroom lobby.'
+        time: '05:00 PM',
+        title: 'Royal Toast & Banquet Delicacies',
+        description: 'Champagne toast by the Best Man and Maid of Honor followed by the grand feast of local & continental dishes.'
       },
       {
-        time: '02:30 PM',
-        title: 'Grand Entrance of the Newlyweds',
-        description: 'Melvin and Chidimma step into the ballroom for their first entrance as Mr. & Mrs. Okafor!'
-      },
-      {
-        time: '03:45 PM',
-        title: 'Cutting of the 7-Tier Cake & Toast',
-        description: 'Sweet celebration toasts led by the Best Man and Chief Bridesmaid.'
-      },
-      {
-        time: '05:00 PM - Late',
-        title: 'After-Party & Endless Dance',
-        description: 'Live DJ set, Afrobeat anthems, special performances, and joyous celebration till the night unfolds.'
+        time: '06:30 PM - Late',
+        title: 'Music, Spraying & Endless Grooves',
+        description: 'Uninterrupted music grooves celebrating the #DesignersMeet love story.'
       }
     ],
     importantNotes: [
-      'Please be seated in the Church 15 minutes before 10:00 AM.',
-      'Strictly RSVP entry for the Reception Ballroom to ensure seamless table seating.',
-      'Children play zone with certified attendants available at the venue.'
+      'VIP table reservations mapped by RSVP pass codes.',
+      'Professional security team handling gate access.'
     ]
   }
 ];
 
-export const LOVE_STORY: LoveStoryMilestone[] = [
+export const GALLERY_PORTRAITS = [
   {
-    year: 'December 2021',
-    title: 'A Chance Glance Across the Canopy',
-    location: 'Lagos, Nigeria',
-    description: "It was at a mutual friend's traditional wedding in Victoria Island. Melvin was captivated by the lady in the shimmering green George wrapper who smiled so genuinely at everyone. A shared conversation about Igbo history and favorite roasted plantain (Boli) turned into a 3-hour laughter that neither wanted to end.",
-    image: 'https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80',
-    caption: 'Where two worlds gently intertwined'
+    src: './photos/outdoor-umbrella.jpg',
+    title: 'The Royal Nigerian Heritage',
+    subtitle: 'Eniola in regal black lace with parasol & Oluwaseyi with ceremonial staff',
+    tag: 'Traditional Regalia'
   },
   {
-    year: 'August 2022',
-    title: 'The Miles That Drew Us Closer',
-    location: 'Abuja & Enugu',
-    description: 'Despite living in different cities for eight months while working on landmark projects, our nightly phone calls, surprise flower deliveries, and weekend road trips made distance feel completely powerless against our growing bond.',
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
-    caption: 'Miles conquered by faith and devotion'
+    src: './photos/studio-suit-full.jpg',
+    title: '#DesignersMeet Signature Tailoring',
+    subtitle: 'Custom tailored beige double-breasted suit & chocolate brown ensemble',
+    tag: 'Designer Series'
   },
   {
-    year: 'December 2024',
-    title: 'The Sunset Proposal on Milken Hill',
-    location: 'Enugu Pine Forest Ridge',
-    description: 'Overlooking the gentle hills of the Coal City at golden hour, surrounded by fairy lights and gentle strings playing "Ada Ada", Melvin knelt on one knee with tears of joy, asking Chidimma to build forever with him. Her "A thousand times YES!" echoed into the sunset.',
-    image: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80',
-    caption: 'She said YES on the hills of Enugu'
+    src: './photos/outdoor-walking.jpg',
+    title: 'Joyful Walk of Destiny',
+    subtitle: 'Smiling together hand-in-hand beneath the lush canopies of Ilorin',
+    tag: 'Love in Motion'
   },
   {
-    year: 'December 2026',
-    title: 'Two Hearts, One Covenant',
-    location: 'Enugu, Nigeria',
-    description: 'Surrounded by our beloved parents, elders, siblings, and dearest friends, we step forward to give glory to God and celebrate our union in royal cultural elegance. Forever begins now!',
-    image: 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80',
-    caption: 'Our Forever journey begins'
+    src: './photos/studio-suit-hands.jpg',
+    title: 'Intertwined by Craft & Covenant',
+    subtitle: 'Geometric designer hand clasp representing unbroken unity',
+    tag: 'The Covenant'
+  },
+  {
+    src: './photos/outdoor-close.jpg',
+    title: 'My Sanctuary & My Home',
+    subtitle: 'Eniola resting gracefully upon Oluwaseyi\'s shoulder',
+    tag: 'Intimate Romance'
+  },
+  {
+    src: './photos/bw-intimate.jpg',
+    title: 'Timeless Monochromatic Grace',
+    subtitle: 'A quiet, heartfelt gaze before the journey into eternity',
+    tag: 'Fine Art'
+  },
+  {
+    src: './photos/studio-suit-shades.jpg',
+    title: 'Visionaries in Harmony',
+    subtitle: 'High-fashion editorial profile of two creative souls',
+    tag: 'Editorial'
+  },
+  {
+    src: './photos/outdoor-laughing.jpg',
+    title: 'Laughter, Light & Forever',
+    subtitle: 'Pure uninhibited laughter that fills our home with peace',
+    tag: 'Pure Joy'
   }
 ];
 
 export const GIFT_ITEMS: GiftItem[] = [
   {
     id: 'gift-1',
-    title: 'Zanzibar & Seychelles Honeymoon Getaway',
-    category: 'honeymoon',
-    description: 'Help fund our dream romantic escape to the turquoise beaches of Zanzibar and serene sunsets of Seychelles.',
-    targetAmount: 3500000,
-    currentAmount: 2150000,
-    iconName: 'Plane',
-    image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=600&q=80'
+    title: 'Designers Creative Atelier & Tech Suite',
+    category: 'home',
+    description: 'Contributing towards cutting-edge design workstations, fabric plotters, and studio equipment for our creative venture.',
+    targetAmount: 3000000,
+    currentAmount: 1950000,
+    iconName: 'ChefHat',
+    image: './photos/studio-suit-standing.jpg'
   },
   {
     id: 'gift-2',
-    title: 'New Home Culinary & Kitchen Suite',
-    category: 'home',
-    description: 'Contributions toward our kitchen essentials: smart blender, double-door refrigerator, and cast iron cookware for Sunday feasts.',
-    targetAmount: 1800000,
-    currentAmount: 1200000,
-    iconName: 'ChefHat',
-    image: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?auto=format&fit=crop&w=600&q=80'
+    title: 'Maldives / Zanzibar Romantic Honeymoon Fund',
+    category: 'honeymoon',
+    description: 'Help send the newlyweds on a peaceful tropical beach retreat to unwind and celebrate after the wedding festivities.',
+    targetAmount: 4000000,
+    currentAmount: 2650000,
+    iconName: 'Plane',
+    image: './photos/outdoor-walking.jpg'
   },
   {
     id: 'gift-3',
-    title: 'Cozy Living Room & Library Setup',
+    title: 'Dream Home Interior & Furnishing',
     category: 'home',
-    description: 'Helping us curate a peaceful sanctuary of books, comfortable seating, and warm lighting for our family devotions.',
-    targetAmount: 1500000,
-    currentAmount: 950000,
+    description: 'Assisting the couple in curating a serene, designer-curated home sanctuary in which to begin marital bliss.',
+    targetAmount: 2500000,
+    currentAmount: 1800000,
     iconName: 'Home',
-    image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=600&q=80'
+    image: './photos/studio-suit-full.jpg'
   },
   {
     id: 'gift-4',
-    title: 'First Year Romantic Date Night Fund',
+    title: 'First Year Romantic Getaways & Date Nights',
     category: 'experience',
-    description: 'Supporting sweet monthly dinner dates, theater outings, and weekend staycations during our blessed first year of marriage.',
-    targetAmount: 750000,
-    currentAmount: 580000,
+    description: 'Sponsoring romantic candlelit dinners, theater visits, and peaceful weekend getaways throughout our first year.',
+    targetAmount: 1000000,
+    currentAmount: 720000,
     iconName: 'UtensilsCrossed',
-    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=600&q=80'
+    image: './photos/outdoor-close.jpg'
   }
 ];
 
 export const BANK_ACCOUNTS: BankAccountDetails[] = [
   {
-    bankName: 'Zenith Bank PLC',
-    accountNumber: '1018894235',
-    accountName: 'Melvin Chukwudi Okafor & Chidimma Eze',
+    bankName: 'Guaranty Trust Bank (GTBank)',
+    accountNumber: '0126183282',
+    accountName: 'Falola Abisola Eniola',
     currency: 'NGN (Nigerian Naira)',
-    diasporaNote: 'For local Nigerian transfers or USSD banking'
+    diasporaNote: "Bride's Direct Gift Account (USSD / Local Transfer)"
   },
   {
-    bankName: 'Guaranty Trust Bank (GTBank)',
-    accountNumber: '0234589112',
-    accountName: 'Melvin Chukwudi Okafor',
-    currency: 'USD / Domiciliary Transfer',
-    swiftCode: 'GTBINGLA',
-    diasporaNote: 'Ideal for friends and family sending love from the UK, USA, Canada, and Diaspora'
+    bankName: 'First Bank of Nigeria',
+    accountNumber: '3081170123',
+    accountName: 'Adebiyi Peter Oluwaseyi',
+    currency: 'NGN (Nigerian Naira)',
+    diasporaNote: "Groom's Direct Gift Account (USSD / Local Transfer)"
   }
 ];
 
 export const INITIAL_PRAYERS: WeddingWish[] = [
   {
     id: 'wish-1',
-    name: 'Uncle Emeka & Aunty Nkiru',
-    relationship: "Bride's Family",
-    message: 'Chidimma our precious jewel, and Melvin our fine in-law! We are overjoyed. Your union is ordained in heaven.',
-    prayer: 'May your home be surrounded by laughter, divine health, peace like a river, and sweet harmony that only deepens with age. Chukwu gozie unu nile!',
-    reactions: 34,
-    createdAt: '2026-10-15T09:30:00Z'
+    name: 'Elder & Deaconess B.J Falola',
+    relationship: "Parents of the Bride",
+    message: 'Abisola, our precious jewel! You have been a source of unceasing joy to us. Seeing you unite with Oluwaseyi fills our hearts with praise.',
+    prayer: 'May the Lord establish your home on the solid rock of Christ. May your peace flow like an endless river and may God crown your union with honor and divine favor!',
+    reactions: 48,
+    createdAt: '2026-10-25T09:30:00Z'
   },
   {
     id: 'wish-2',
-    name: 'Dr. Obinna Anyaoku',
-    relationship: "Groom's Friend",
-    message: 'Mel, my brother from UNILAG days! Seeing you meet your queen Chidimma has been the most beautiful journey to witness.',
-    prayer: 'May your love be stronger than iron, sweet like fresh palm wine, and may your children flourish like cedar trees on Mount Lebanon. Cheers to #MELWED2026!',
-    reactions: 27,
-    createdAt: '2026-10-16T14:15:00Z'
+    name: 'Mrs. Joshua Adebiyi & Family',
+    relationship: "Family of the Groom",
+    message: 'Oluwaseyi my son, your late father Senior Apostle Joshua Adebiyi would have been immensely proud today. You chose a woman of virtue and wisdom in Eniola.',
+    prayer: 'May God’s grace be your eternal shield. What God has joined together, no man shall put asunder. You will both flourish in love, good health, and abundance!',
+    reactions: 52,
+    createdAt: '2026-10-26T14:15:00Z'
   },
   {
     id: 'wish-3',
-    name: 'Adaora Nwosu',
-    relationship: "Chief Bridesmaid",
-    message: 'Chidi my sister of life! From secondary school desks to picking out your royal George fabric today, God has been faithful!',
-    prayer: 'May Melvin cherish you every single morning. May wisdom guide your decisions, and may peace reign in your dwelling forever.',
-    reactions: 42,
-    createdAt: '2026-10-17T11:00:00Z'
+    name: 'Queen (RSVP Coordinator)',
+    relationship: "Bridal Committee",
+    message: 'Two creative titans, two pure souls! Working with you on #DesignersMeet has been magical. Can’t wait to celebrate in Ilorin!',
+    prayer: 'May your creativity continue to shape nations and may your love story be told for generations. Congratulations Eniola & Peter!',
+    reactions: 35,
+    createdAt: '2026-10-28T11:00:00Z'
   },
   {
     id: 'wish-4',
-    name: 'Engr. & Mrs. Kenechukwu Mbah',
-    relationship: 'Family Friends',
-    message: 'Hearty congratulations to the Okafor and Eze families! This union brings two great houses together in love and unity.',
-    prayer: 'The grace of the Lord shall be your canopy. In times of abundance you shall be humble, in all times you shall remain united as one cord.',
-    reactions: 19,
-    createdAt: '2026-10-18T16:45:00Z'
+    name: 'Bode (RSVP Coordinator)',
+    relationship: "Groom's Confidant",
+    message: 'P-Square! My brother Peter Oluwaseyi! You have found your crown in Eniola. Welcome to forever.',
+    prayer: 'May God grant you supernatural wisdom to lead your home. May your laughter never cease and your table always overflow with blessings.',
+    reactions: 39,
+    createdAt: '2026-10-29T16:45:00Z'
   }
 ];
 
 export const INITIAL_RSVPS: GuestRSVP[] = [
   {
     id: 'rsvp-1',
-    name: 'Sir Patrick Okonkwo & Lady Ifeoma',
+    name: 'Chief & Dr. (Mrs.) Tunde Balogun',
     phone: '+234 803 555 0192',
-    email: 'patrick.okonkwo@example.com',
+    email: 'tunde.balogun@example.com',
     attending: 'both',
     partySize: 2,
-    guestNames: 'Lady Ifeoma Okonkwo',
-    mealPreference: 'Pounded Yam with Ofe Oha & Fresh Fish',
-    songRequest: 'Osadebe - Osondi Owendi',
-    passCode: 'MEL-8291',
-    createdAt: '2026-10-14T10:12:00Z'
+    guestNames: 'Dr. (Mrs.) Kemi Balogun',
+    mealPreference: 'Amala with Abula (Gbegiri & Ewedu) + Assorted Goat Meat',
+    songRequest: 'KSA - Synchrony System / Ebenezer Obey',
+    passCode: 'DES-8291',
+    createdAt: '2026-10-24T10:12:00Z',
+    checkedIn: false
   },
   {
     id: 'rsvp-2',
-    name: 'Kamsi Igwe',
+    name: 'Arc. Femi Adeleke',
     phone: '+234 802 444 8812',
-    email: 'kamsi.igwe@example.com',
+    email: 'femi.adeleke@example.com',
     attending: 'both',
     partySize: 1,
-    mealPreference: 'Jollof Rice with Crispy Fried Chicken & Plantain',
-    songRequest: 'Flavour - Ada Ada',
-    passCode: 'MEL-4402',
-    createdAt: '2026-10-15T15:30:00Z'
+    mealPreference: 'Jollof Rice with Fried Chicken, Plantain & Salad',
+    songRequest: 'Asake - Only Me / Burna Boy',
+    passCode: 'DES-4402',
+    createdAt: '2026-10-25T15:30:00Z',
+    checkedIn: false
   },
   {
     id: 'rsvp-3',
-    name: 'Chinedu & Somadina Nnamdi',
+    name: 'Pastor & Deaconess Segun Olatunji',
     phone: '+234 810 998 1234',
-    email: 'somadina@example.com',
+    email: 'segun.olatunji@example.com',
     attending: 'traditional',
     partySize: 2,
-    guestNames: 'Somadina Nnamdi',
-    mealPreference: 'Abacha (African Salad) with Ugba & Fried Fish',
-    songRequest: 'Umu Obiligbo - Culture',
-    passCode: 'MEL-9031',
-    createdAt: '2026-10-16T12:00:00Z'
+    guestNames: 'Deaconess Folashade Olatunji',
+    mealPreference: 'Pounded Yam with Egusi Soup & Fresh Catfish',
+    songRequest: 'Nathaniel Bassey - Tobechukwu',
+    passCode: 'DES-9031',
+    createdAt: '2026-10-26T12:00:00Z',
+    checkedIn: false
   }
 ];

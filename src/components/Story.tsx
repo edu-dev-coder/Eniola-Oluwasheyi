@@ -1,240 +1,197 @@
 import React, { useState } from 'react';
-import { Heart, Sparkles, MapPin, X, ZoomIn } from 'lucide-react';
-import { LOVE_STORY, WEDDING_COUPLE } from '../data/weddingData';
+import { Sparkles, Heart, ZoomIn, X, Crown, Scissors, Palette } from 'lucide-react';
+import { WEDDING_COUPLE, GALLERY_PORTRAITS } from '../data/weddingData';
 
 export const Story: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const galleryImages = [
-    {
-      src: '/images/igbo-bride.jpg',
-      title: 'Chidimma, The Radiant Bride',
-      subtitle: 'Adorned in royal coral beads (Iyin) & emerald green lace',
-    },
-    {
-      src: '/images/igbo-couple-igbankwu.jpg',
-      title: 'Traditional Igba Nkwu Ceremony',
-      subtitle: 'The sacred moment of wine carrying & ancestral blessing',
-    },
-    {
-      src: '/images/white-wedding-couple.jpg',
-      title: 'Melvin & Chidimma • Forever Matrimony',
-      subtitle: 'Bespoke elegance & holy vows sealed in love',
-    },
-  ];
-
   return (
-    <section id="story" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#FAF7F2] text-[#2C2723] relative">
-      <div className="max-w-6xl mx-auto">
+    <section id="union" className="py-24 px-4 sm:px-6 lg:px-8 bg-[#FAF7F2] text-[#2C2723] relative overflow-hidden">
+      {/* Decorative Warm Ambient Glows */}
+      <div className="absolute top-0 right-0 w-96 h-96 bg-[#D97724]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#380A11]/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.25em] text-[#0A3824] bg-[#0A3824]/10 px-3.5 py-1.5 rounded-full mb-3">
-            <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-            <span>How God Wove Our Hearts</span>
+          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.25em] text-[#380A11] bg-[#380A11]/10 px-4 py-1.5 rounded-full mb-3">
+            <Sparkles className="w-3.5 h-3.5 text-[#D97724]" />
+            <span>#DesignersMeet • The Covenant</span>
           </div>
-          <h2 className="font-serif-luxury text-3xl sm:text-4xl md:text-5xl font-bold text-[#0A3824] tracking-tight">
-            Our Journey to Forever
+          <h2 className="font-serif-luxury text-3xl sm:text-4xl md:text-5xl font-bold text-[#380A11] tracking-tight">
+            Two Creative Souls, One Divine Destiny
           </h2>
-          <div className="w-16 h-0.5 bg-[#D4AF37] mx-auto my-4"></div>
+          <div className="w-20 h-1 bg-gradient-to-r from-[#380A11] via-[#D97724] to-[#D4AF37] mx-auto my-4 rounded-full"></div>
           <p className="text-stone-600 text-sm sm:text-base font-serif-luxury italic">
-            "He who finds a wife finds a good thing and obtains favor from the Lord." — Proverbs 18:22
+            "Every good gift and every perfect gift is from above, coming down from the Father of lights." — James 1:17
           </p>
         </div>
 
-        {/* Featured Portraits Spotlight: The Bride & The Groom */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
-          {/* The Bride Card */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-[#D4AF37]/30 flex flex-col items-center text-center relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#E2583E]/10 rounded-full blur-2xl"></div>
-            <div className="relative mb-6">
-              <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden border-4 border-[#D4AF37] shadow-xl p-1 bg-white">
-                <img
-                  src="/images/igbo-bride.jpg"
-                  alt={WEDDING_COUPLE.bride.fullName}
-                  className="w-full h-full object-cover rounded-full group-hover:scale-105 transition-transform duration-500"
-                />
+        {/* Feature Split: Official Invitation Flyer & Couple Showcase */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-20">
+          {/* Left: The Official Invitation Flyer Card */}
+          <div className="lg:col-span-5 flex flex-col items-center">
+            <div
+              onClick={() => setSelectedImage('./photos/invitation-card.jpeg')}
+              className="group relative cursor-pointer rounded-3xl overflow-hidden shadow-2xl border-4 border-[#D4AF37] max-w-sm w-full bg-[#380A11] transition-transform duration-300 hover:scale-[1.02]"
+            >
+              <img
+                src="./photos/invitation-card.jpeg"
+                alt="Eniola & Oluwaseyi Wedding Invitation Card"
+                className="w-full h-auto object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center p-6">
+                <span className="px-4 py-2 rounded-full bg-[#D4AF37] text-[#240408] text-xs font-bold flex items-center gap-2 shadow-lg">
+                  <ZoomIn className="w-4 h-4" />
+                  <span>Click to Expand Invitation</span>
+                </span>
               </div>
-              <span className="absolute bottom-2 right-2 bg-[#0A3824] text-[#D4AF37] p-2 rounded-full shadow-lg border border-[#D4AF37]/50">
-                <Heart className="w-4 h-4 fill-[#D4AF37]" />
-              </span>
             </div>
-            <span className="text-xs uppercase tracking-widest text-[#E2583E] font-bold">
-              The Bride
+            <span className="text-xs text-stone-500 font-mono mt-3 uppercase tracking-wider">
+              Official Printed Invitation Card
             </span>
-            <h3 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#0A3824] mt-1 mb-2">
-              {WEDDING_COUPLE.bride.fullName}
-            </h3>
-            <p className="text-xs text-stone-500 mb-4 font-serif-luxury italic">
-              Daughter of {WEDDING_COUPLE.bride.parents}
-            </p>
-            <p className="text-stone-600 text-sm leading-relaxed max-w-md">
-              "{WEDDING_COUPLE.bride.bio}"
-            </p>
-            <div className="mt-6 pt-4 border-t border-stone-100 w-full text-xs text-[#0A3824] font-medium flex items-center justify-center gap-2">
-              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span>Adaeze of Mel's Heart</span>
-            </div>
           </div>
 
-          {/* The Groom Card */}
-          <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-[#D4AF37]/30 flex flex-col items-center text-center relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#0A3824]/10 rounded-full blur-2xl"></div>
-            <div className="relative mb-6">
-              <div className="w-48 h-48 sm:w-56 sm:h-56 rounded-full overflow-hidden border-4 border-[#D4AF37] shadow-xl p-1 bg-white">
-                <img
-                  src="/images/white-wedding-couple.jpg"
-                  alt={WEDDING_COUPLE.groom.fullName}
-                  className="w-full h-full object-cover object-top rounded-full group-hover:scale-105 transition-transform duration-500"
-                />
+          {/* Right: The Designers Spotlight & Proclamation */}
+          <div className="lg:col-span-7 space-y-6">
+            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-[#D4AF37]/30 shadow-xl relative overflow-hidden">
+              <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-[#D97724] font-bold mb-2">
+                <Crown className="w-4 h-4 text-[#D4AF37]" />
+                <span>The Visionary Union</span>
               </div>
-              <span className="absolute bottom-2 right-2 bg-[#0A3824] text-[#D4AF37] p-2 rounded-full shadow-lg border border-[#D4AF37]/50">
-                <Heart className="w-4 h-4 fill-[#D4AF37]" />
-              </span>
-            </div>
-            <span className="text-xs uppercase tracking-widest text-[#D4AF37] font-bold">
-              The Groom
-            </span>
-            <h3 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#0A3824] mt-1 mb-2">
-              {WEDDING_COUPLE.groom.fullName}
-            </h3>
-            <p className="text-xs text-stone-500 mb-4 font-serif-luxury italic">
-              Son of {WEDDING_COUPLE.groom.parents}
-            </p>
-            <p className="text-stone-600 text-sm leading-relaxed max-w-md">
-              "{WEDDING_COUPLE.groom.bio}"
-            </p>
-            <div className="mt-6 pt-4 border-t border-stone-100 w-full text-xs text-[#0A3824] font-medium flex items-center justify-center gap-2">
-              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span>Beloved of Chidimma</span>
+
+              <h3 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#380A11]">
+                Where Love Meets Master Craftsmanship
+              </h3>
+
+              <p className="text-stone-600 text-sm leading-relaxed mt-3">
+                In fashion and design, true beauty is found in balance, harmony, and thoughtful detail. When God brought 
+                <span className="font-semibold text-stone-900"> Falola Abisola Eniola </span> and 
+                <span className="font-semibold text-stone-900"> Adebiyi Peter Oluwaseyi </span> together, He orchestrated a seamless pattern of mutual respect, shared passion, and unwavering Christian faith.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6 pt-6 border-t border-stone-100">
+                {/* Bride Pill */}
+                <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#D97724]/20">
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase text-[#C85023] mb-1">
+                    <Scissors className="w-3.5 h-3.5" />
+                    <span>The Bride</span>
+                  </div>
+                  <h4 className="font-serif-luxury text-lg font-bold text-[#380A11]">
+                    {WEDDING_COUPLE.bride.fullName}
+                  </h4>
+                  <p className="text-xs text-stone-500 italic mt-0.5">
+                    Daughter of {WEDDING_COUPLE.bride.parents}
+                  </p>
+                  <p className="text-xs text-stone-600 italic mt-2">
+                    "{WEDDING_COUPLE.bride.quote}"
+                  </p>
+                </div>
+
+                {/* Groom Pill */}
+                <div className="p-4 rounded-2xl bg-[#FAF7F2] border border-[#D97724]/20">
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase text-[#D97724] mb-1">
+                    <Palette className="w-3.5 h-3.5" />
+                    <span>The Groom</span>
+                  </div>
+                  <h4 className="font-serif-luxury text-lg font-bold text-[#380A11]">
+                    {WEDDING_COUPLE.groom.fullName}
+                  </h4>
+                  <p className="text-xs text-stone-500 italic mt-0.5">
+                    Son of {WEDDING_COUPLE.groom.parents}
+                  </p>
+                  <p className="text-xs text-stone-600 italic mt-2">
+                    "{WEDDING_COUPLE.groom.quote}"
+                  </p>
+                </div>
+              </div>
+
+              {/* Invitation Callout */}
+              <div className="mt-6 p-4 rounded-2xl bg-gradient-to-r from-[#380A11] to-[#240408] text-white flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                  <span className="text-[11px] font-mono text-[#F5E19A] uppercase tracking-wider block font-bold">
+                    Official VIP Invitation
+                  </span>
+                  <p className="text-xs text-stone-200 mt-0.5">
+                    Please confirm attendance below to receive your personalized VIP pass with scannable gate QR code.
+                  </p>
+                </div>
+                <a
+                  href="#rsvp"
+                  className="shrink-0 px-5 py-2.5 rounded-full bg-[#D4AF37] hover:bg-[#F5E19A] text-[#240408] text-xs font-bold transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Heart className="w-3.5 h-3.5 fill-[#240408]" />
+                  <span>RSVP Now</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Story Milestones Timeline */}
-        <div className="relative mb-20">
-          <div className="text-center mb-10">
-            <h3 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#0A3824]">
-              Our Chapters
+        {/* Gallery Section */}
+        <div id="gallery" className="pt-8">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-xs font-bold font-mono tracking-widest uppercase text-[#D97724] block mb-1">
+              Visual Narrative
+            </span>
+            <h3 className="font-serif-luxury text-2xl sm:text-3xl md:text-4xl font-bold text-[#380A11]">
+              The #DesignersMeet Portrait Gallery
             </h3>
-            <p className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold mt-1">
-              From Lagos to Enugu • A Tapestry of Love
+            <p className="text-xs sm:text-sm text-stone-600 mt-1">
+              Moments of grace, tailored elegance, and quiet joy captured on our journey to forever.
             </p>
           </div>
 
-          <div className="relative border-l-2 border-[#D4AF37]/40 ml-4 sm:ml-32 md:ml-48 space-y-12">
-            {LOVE_STORY.map((item, idx) => (
-              <div key={idx} className="relative pl-6 sm:pl-10 group">
-                {/* Timeline node icon */}
-                <div className="absolute -left-[17px] top-1.5 w-8 h-8 rounded-full bg-[#0A3824] border-2 border-[#D4AF37] flex items-center justify-center text-[#D4AF37] shadow-md group-hover:scale-110 transition-transform">
-                  <Heart className="w-3.5 h-3.5 fill-[#D4AF37]" />
-                </div>
-
-                {/* Date marker for larger screens */}
-                <div className="hidden sm:block absolute -left-48 top-2 text-right w-36">
-                  <span className="text-xs uppercase font-bold tracking-wider text-[#0A3824] block">
-                    {item.year}
+          {/* Grid of Pre-wedding Photos */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+            {GALLERY_PORTRAITS.map((img, idx) => (
+              <div
+                key={idx}
+                onClick={() => setSelectedImage(img.src)}
+                className="group relative cursor-pointer rounded-2xl overflow-hidden aspect-[3/4] shadow-md border border-stone-200 hover:border-[#D4AF37] transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 bg-stone-100"
+              >
+                <img
+                  src={img.src}
+                  alt={img.title}
+                  className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-3 sm:p-4 flex flex-col justify-end text-white">
+                  <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-wider text-[#F5E19A] font-semibold">
+                    {img.tag}
                   </span>
-                  <span className="text-[11px] text-stone-500 flex items-center justify-end gap-1">
-                    <MapPin className="w-3 h-3 text-[#E2583E]" />
-                    {item.location}
+                  <span className="font-serif-luxury text-xs sm:text-sm font-bold line-clamp-1">
+                    {img.title}
                   </span>
-                </div>
-
-                {/* Milestone Content Box */}
-                <div className="bg-white p-6 sm:p-8 rounded-2xl border border-stone-200/80 shadow-md hover:shadow-lg transition-all">
-                  <div className="sm:hidden flex items-center justify-between text-xs text-stone-500 mb-2">
-                    <span className="font-bold text-[#0A3824]">{item.year}</span>
-                    <span className="flex items-center gap-1">
-                      <MapPin className="w-3 h-3 text-[#E2583E]" />
-                      {item.location}
-                    </span>
-                  </div>
-                  <h4 className="font-serif-luxury text-xl sm:text-2xl font-bold text-[#0A3824] mb-2">
-                    {item.title}
-                  </h4>
-                  <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
-                    {item.description}
-                  </p>
-                  {item.caption && (
-                    <p className="mt-3 text-xs text-[#D4AF37] font-serif-luxury italic font-medium">
-                      ~ {item.caption}
-                    </p>
-                  )}
+                  <span className="text-[10px] text-stone-300 line-clamp-2 mt-0.5 hidden sm:block">
+                    {img.subtitle}
+                  </span>
                 </div>
               </div>
             ))}
           </div>
         </div>
-
-        {/* Tentative Photo Gallery */}
-        <div className="bg-[#0A3824] text-white rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
-          <div className="absolute inset-0 igbo-pattern opacity-30"></div>
-          <div className="relative z-10">
-            <div className="text-center max-w-xl mx-auto mb-8">
-              <span className="text-xs uppercase tracking-widest text-[#D4AF37] font-bold">
-                Moments of Splendor
-              </span>
-              <h3 className="font-serif-luxury text-2xl sm:text-3xl font-bold text-[#F9E498] mt-1">
-                Tentative Wedding Gallery
-              </h3>
-              <p className="text-xs text-stone-300 mt-2">
-                A glimpse into our authentic Igbo attire, coral beads royalty, and celebration moments.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {galleryImages.map((img, i) => (
-                <div
-                  key={i}
-                  onClick={() => setSelectedImage(img.src)}
-                  className="group relative rounded-2xl overflow-hidden cursor-pointer shadow-lg border border-[#D4AF37]/30 bg-black/40 aspect-[4/5]"
-                >
-                  <img
-                    src={img.src}
-                    alt={img.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity flex flex-col justify-end p-5">
-                    <span className="text-white font-serif-luxury text-lg font-bold">
-                      {img.title}
-                    </span>
-                    <span className="text-[#F3E5AB] text-xs mt-1">
-                      {img.subtitle}
-                    </span>
-                    <div className="mt-2 flex items-center gap-1 text-[11px] text-[#D4AF37] font-medium">
-                      <ZoomIn className="w-3 h-3" />
-                      <span>Click to view full photo</span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
 
-      {/* Lightbox Modal */}
+      {/* Lightbox Modal for Full-Screen Image Viewing */}
       {selectedImage && (
         <div
           className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
           onClick={() => setSelectedImage(null)}
         >
-          <button
-            onClick={() => setSelectedImage(null)}
-            className="absolute top-6 right-6 text-white hover:text-[#D4AF37] p-2 rounded-full bg-black/50 border border-white/20"
-            aria-label="Close modal"
-          >
-            <X className="w-6 h-6" />
-          </button>
-          <div
-            className="max-w-4xl max-h-[85vh] rounded-2xl overflow-hidden border-2 border-[#D4AF37] shadow-2xl bg-black"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="relative max-w-4xl max-h-[90vh] w-full flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
             <img
               src={selectedImage}
-              alt="Enlarged celebration view"
-              className="w-full h-full object-contain max-h-[80vh]"
+              alt="Eniola & Oluwaseyi Wedding Preview"
+              className="max-h-[85vh] w-auto max-w-full rounded-2xl shadow-2xl border-2 border-[#D4AF37] object-contain"
             />
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-3 right-3 p-2 rounded-full bg-black/70 text-white hover:bg-[#D4AF37] hover:text-[#240408] transition-colors cursor-pointer"
+              aria-label="Close Preview"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
         </div>
       )}

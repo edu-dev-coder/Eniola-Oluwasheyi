@@ -1,8 +1,8 @@
 import type { GuestRSVP, WeddingWish } from '../types/wedding';
 import { INITIAL_RSVPS, INITIAL_PRAYERS } from '../data/weddingData';
 
-const RSVP_STORAGE_KEY = 'melwed_rsvps_v1';
-const WISHES_STORAGE_KEY = 'melwed_wishes_v1';
+const RSVP_STORAGE_KEY = 'designersmeet_rsvps_v2';
+const WISHES_STORAGE_KEY = 'designersmeet_wishes_v2';
 
 export function getStoredRSVPs(): GuestRSVP[] {
   try {
@@ -11,7 +11,19 @@ export function getStoredRSVPs(): GuestRSVP[] {
       localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(INITIAL_RSVPS));
       return INITIAL_RSVPS;
     }
-    return JSON.parse(data);
+    const parsed: GuestRSVP[] = JSON.parse(data);
+    // Deduplicate in case of legacy test collisions
+    const seen = new Set<string>();
+    const unique = parsed.filter(item => {
+      const key = item.id || item.passCode;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+    if (unique.length !== parsed.length) {
+      localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(unique));
+    }
+    return unique;
   } catch {
     return INITIAL_RSVPS;
   }
@@ -20,7 +32,8 @@ export function getStoredRSVPs(): GuestRSVP[] {
 export function saveRSVP(rsvp: GuestRSVP): GuestRSVP[] {
   try {
     const current = getStoredRSVPs();
-    const updated = [rsvp, ...current];
+    const filtered = current.filter(r => r.id !== rsvp.id && r.passCode !== rsvp.passCode);
+    const updated = [rsvp, ...filtered];
     localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(updated));
     return updated;
   } catch (err) {
@@ -102,4 +115,37 @@ export function exportRSVPToCSV(rsvps: GuestRSVP[]): void {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+}
+
+export function findRSVPByPassCode(passCode: string): GuestRSVP | undefined {
+  const normalized = passCode.trim().toUpperCase();
+  const list = getStoredRSVPs();
+  return list.find(r => r.passCode.toUpperCase() === normalized);
+}
+
+export function toggleCheckIn(passCodeOrId: string, status?: boolean): { updatedList: GuestRSVP[]; rsvp?: GuestRSVP } {
+  try {
+    const list = getStoredRSVPs();
+    const query = passCodeOrId.trim().toUpperCase();
+    let targetRSVP: GuestRSVP | undefined;
+
+    const updatedList = list.map(r => {
+      if (r.id === passCodeOrId || r.passCode.toUpperCase() === query) {
+        const newStatus = status !== undefined ? status : !r.checkedIn;
+        targetRSVP = {
+          ...r,
+          checkedIn: newStatus,
+          checkedInAt: newStatus ? new Date().toISOString() : undefined,
+        };
+        return targetRSVP;
+      }
+      return r;
+    });
+
+    localStorage.setItem(RSVP_STORAGE_KEY, JSON.stringify(updatedList));
+    return { updatedList, rsvp: targetRSVP };
+  } catch (err) {
+    console.error('Failed to toggle check-in status', err);
+    return { updatedList: getStoredRSVPs() };
+  }
 }

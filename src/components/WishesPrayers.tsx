@@ -46,7 +46,7 @@ export const WishesPrayers: React.FC<WishesPrayersProps> = ({
         particleCount: 50,
         spread: 60,
         origin: { y: 0.8 },
-        colors: ['#D4AF37', '#E2583E', '#0A3824']
+        colors: ['#D4AF37', '#C85023', '#3D1E16', '#380A11']
       });
     } catch {
       // safe fallback
@@ -98,47 +98,47 @@ export const WishesPrayers: React.FC<WishesPrayersProps> = ({
   });
 
   return (
-    <section id="wishes" className="py-20 bg-gradient-to-b from-stone-50 via-warm-ivory to-emerald-950/5 relative overflow-hidden">
-      {/* Decorative Traditional Accent */}
-      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-champagne-gold/40 to-transparent" />
+    <section id="wishes" className="py-20 bg-gradient-to-b from-[#380A11]/5 via-[#FAF7F2] to-[#3D1E16]/10 relative overflow-hidden">
+      {/* Decorative Gold Accent */}
+      <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-transparent via-[#D4AF37]/50 to-transparent" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-900/10 border border-emerald-800/20 text-emerald-900 text-xs tracking-widest uppercase font-medium mb-3">
-            <Heart className="w-3.5 h-3.5 text-coral-red fill-coral-red" />
-            <span>Idu Isi Na Ekpere • Blessings & Good Wishes</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#380A11]/10 border border-[#D4AF37]/30 text-[#380A11] text-xs tracking-widest uppercase font-medium mb-3">
+            <Heart className="w-3.5 h-3.5 text-[#C85023] fill-[#C85023]" />
+            <span>Àdúrà Àti Ìre • Blessings &amp; Well Wishes for #DesignersMeet</span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-emerald-950 mb-3 tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-serif text-[#380A11] mb-3 tracking-tight">
             Drop a Blessing for the Couple
           </h2>
 
           <p className="text-stone-600 text-sm sm:text-base leading-relaxed">
-            Your heartfelt words, sincere prayers, and warm greetings mean the world to Melvin & Chidimma.
-            Leave a permanent imprint of your love as we build our home.
+            Your heartfelt words, sincere prayers, and warm greetings mean the world to Eniola &amp; Oluwaseyi.
+            Leave a permanent imprint of your love as we begin our holy marital journey.
           </p>
         </div>
 
         {/* 2-Column Layout: Form on Left, Live Feed on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           {/* Form Column (5 Cols) */}
-          <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-stone-200/50 border border-champagne-gold/30 relative">
+          <div className="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-stone-200/50 border border-[#D4AF37]/30 relative">
             <div className="flex items-center gap-3 mb-6 pb-4 border-b border-stone-100">
-              <div className="w-10 h-10 rounded-2xl bg-champagne-gold/20 flex items-center justify-center text-emerald-950">
-                <MessageCircleHeart className="w-5 h-5 text-emerald-900" />
+              <div className="w-10 h-10 rounded-2xl bg-[#D4AF37]/20 flex items-center justify-center text-[#380A11]">
+                <MessageCircleHeart className="w-5 h-5 text-[#380A11]" />
               </div>
               <div>
-                <h3 className="font-serif text-lg text-emerald-950 font-semibold">Write Your Wish & Prayer</h3>
-                <p className="text-xs text-stone-500">Every message is saved in our digital guestbook</p>
+                <h3 className="font-serif text-lg text-[#380A11] font-semibold">Write Your Wish &amp; Prayer</h3>
+                <p className="text-xs text-stone-500">Every message is preserved in our digital guestbook</p>
               </div>
             </div>
 
             {submittedToast && (
-              <div className="mb-6 p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900 flex items-center gap-3 animate-fade-in">
-                <Sparkles className="w-5 h-5 text-champagne-gold flex-shrink-0" />
+              <div className="mb-6 p-4 rounded-2xl bg-amber-50 border border-amber-200 text-[#380A11] flex items-center gap-3 animate-fade-in">
+                <Sparkles className="w-5 h-5 text-[#D4AF37] flex-shrink-0" />
                 <p className="text-xs sm:text-sm font-medium">
-                  Daalụ rinne! Thank you for your warm prayer and wish. It is now published below!
+                  E ṣe púpọ̀! Thank you for your warm prayer and wish. It is now published below!
                 </p>
               </div>
             )}
@@ -146,15 +146,15 @@ export const WishesPrayers: React.FC<WishesPrayersProps> = ({
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
-                  Your Full Name <span className="text-coral-red">*</span>
+                  Your Full Name <span className="text-[#C85023]">*</span>
                 </label>
                 <input
                   type="text"
                   required
                   value={name}
                   onChange={e => setName(e.target.value)}
-                  placeholder="e.g. Chief & Lolo Nnamdi Okoro"
-                  className="w-full px-4 py-3 rounded-xl border border-stone-200 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-champagne-gold focus:border-transparent transition-all"
+                  placeholder="e.g. Pastor &amp; Mrs. Funsho Adeyemi"
+                  className="w-full px-4 py-3 rounded-xl border border-stone-200 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all"
                 />
               </div>
 
@@ -165,7 +165,7 @@ export const WishesPrayers: React.FC<WishesPrayersProps> = ({
                 <select
                   value={relationship}
                   onChange={e => setRelationship(e.target.value)}
-                  className="w-full px-4 py-3 rounded-xl border border-stone-200 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-champagne-gold focus:border-transparent transition-all"
+                  className="w-full px-4 py-3 rounded-xl border border-stone-200 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all"
                 >
                   {RELATIONSHIP_OPTIONS.map(opt => (
                     <option key={opt} value={opt}>{opt}</option>
@@ -175,43 +175,43 @@ export const WishesPrayers: React.FC<WishesPrayersProps> = ({
 
               <div>
                 <label className="block text-xs font-semibold text-stone-700 uppercase tracking-wider mb-1.5">
-                  Congratulations / Note of Joy <span className="text-coral-red">*</span>
+                  Congratulations / Note of Joy <span className="text-[#C85023]">*</span>
                 </label>
                 <textarea
                   required
                   rows={3}
                   value={message}
                   onChange={e => setMessage(e.target.value)}
-                  placeholder="Share your warm thoughts and joyful memories with Melvin & Chidimma..."
-                  className="w-full px-4 py-3 rounded-xl border border-stone-200 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-champagne-gold focus:border-transparent transition-all resize-none"
+                  placeholder="Share your warm thoughts and joyful memories with Eniola &amp; Oluwaseyi (#DesignersMeet)..."
+                  className="w-full px-4 py-3 rounded-xl border border-stone-200 bg-stone-50/50 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all resize-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-emerald-950 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+                <label className="block text-xs font-semibold text-[#380A11] uppercase tracking-wider mb-1.5 flex items-center justify-between">
                   <span>Special Prayer or Scripture (Optional)</span>
-                  <span className="text-[10px] text-champagne-gold-dark lowercase italic font-normal">Igbo / English blessings welcome</span>
+                  <span className="text-[10px] text-[#C85023] lowercase italic font-normal">Yoruba / English blessings welcome</span>
                 </label>
                 <textarea
                   rows={3}
                   value={prayer}
                   onChange={e => setPrayer(e.target.value)}
                   placeholder="Speak fruitfulness, peace, long life, and divine harmony into their marriage..."
-                  className="w-full px-4 py-3 rounded-xl border border-champagne-gold/30 bg-warm-ivory/60 text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-champagne-gold focus:border-transparent transition-all resize-none"
+                  className="w-full px-4 py-3 rounded-xl border border-[#D4AF37]/40 bg-[#FAF7F2] text-stone-900 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:border-transparent transition-all resize-none"
                 />
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full mt-2 py-3.5 px-6 rounded-xl bg-gradient-to-r from-emerald-950 via-emerald-900 to-emerald-950 text-champagne-gold font-medium text-sm tracking-wide shadow-lg shadow-emerald-950/20 hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 border border-champagne-gold/40 cursor-pointer disabled:opacity-50"
+                className="w-full mt-2 py-3.5 px-6 rounded-xl bg-gradient-to-r from-[#380A11] via-[#3D1E16] to-[#380A11] text-[#D4AF37] font-medium text-sm tracking-wide shadow-lg shadow-[#380A11]/30 hover:shadow-xl hover:scale-[1.01] active:scale-[0.99] transition-all flex items-center justify-center gap-2 border border-[#D4AF37]/40 cursor-pointer disabled:opacity-50"
               >
                 {isSubmitting ? (
                   <span>Sending Your Blessing...</span>
                 ) : (
                   <>
                     <Send className="w-4 h-4" />
-                    <span>Publish Blessing & Love Note</span>
+                    <span>Publish Blessing &amp; Love Note</span>
                   </>
                 )}
               </button>
@@ -279,14 +279,14 @@ export const WishesPrayers: React.FC<WishesPrayersProps> = ({
                     >
                       <div className="flex items-start justify-between gap-3 mb-3">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-900 to-emerald-950 text-champagne-gold font-serif text-sm font-semibold flex items-center justify-center border border-champagne-gold/30 shadow-inner flex-shrink-0">
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#380A11] to-[#3D1E16] text-[#D4AF37] font-serif text-sm font-semibold flex items-center justify-center border border-[#D4AF37]/40 shadow-inner flex-shrink-0">
                             {initials || 'W'}
                           </div>
                           <div>
                             <h4 className="font-semibold text-stone-900 text-sm sm:text-base leading-tight">
                               {item.name}
                             </h4>
-                            <span className="inline-block px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[11px] font-medium border border-emerald-100/60 mt-0.5">
+                            <span className="inline-block px-2 py-0.5 rounded-full bg-[#380A11]/10 text-[#380A11] text-[11px] font-medium border border-[#380A11]/20 mt-0.5">
                               {item.relationship}
                             </span>
                           </div>
