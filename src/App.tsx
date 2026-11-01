@@ -22,18 +22,23 @@ import {
   saveWish,
   toggleWishReaction,
   syncRemoteWishes,
-  syncRemoteRSVPs
+  syncRemoteRSVPs,
+  getStoredGiftTotals,
+  saveGiftContribution,
+  syncRemoteGiftTotals
 } from './utils/storage';
 import { supabase, isSupabaseConfigured } from './utils/supabase';
 import {
   isFirebaseConfigured,
   subscribeToFirestoreWishes,
   subscribeToFirestoreRSVPs,
+  subscribeToFirestoreGiftContributions
 } from './utils/firebase';
 
 export function App() {
   const [rsvps, setRsvps] = useState<GuestRSVP[]>(() => getStoredRSVPs());
   const [wishes, setWishes] = useState<WeddingWish[]>(() => getStoredWishes());
+  const [giftTotals, setGiftTotals] = useState<Record<string, number>>(() => getStoredGiftTotals());
   const [isPlannerOpen, setIsPlannerOpen] = useState(false);
   const [securityGateCode, setSecurityGateCode] = useState<string | null>(null);
   const [isSecurityGateOpen, setIsSecurityGateOpen] = useState(false);
@@ -47,7 +52,7 @@ export function App() {
       setIsSecurityGateOpen(true);
     }
 
-    // Sync wishes & RSVPs from Supabase cloud database
+    // Sync wishes & RSVPs & gifts from cloud database
     syncRemoteWishes().then(syncedWishes => {
       if (syncedWishes && syncedWishes.length > 0) {
         setWishes(syncedWishes);
@@ -60,6 +65,10 @@ export function App() {
       }
     });
 
+    syncRemoteGiftTotals().then(totals => {
+      if (totals) setGiftTotals(totals);
+    });
+
     // Realtime subscription if Firebase is active
     if (isFirebaseConfigured) {
       const unsubWishes = subscribeToFirestoreWishes((list) => {
@@ -68,9 +77,13 @@ export function App() {
       const unsubRSVPs = subscribeToFirestoreRSVPs((list) => {
         if (list && list.length > 0) setRsvps(list);
       });
+      const unsubGifts = subscribeToFirestoreGiftContributions((totals) => {
+        if (totals) setGiftTotals(totals);
+      });
       return () => {
         if (unsubWishes) unsubWishes();
         if (unsubRSVPs) unsubRSVPs();
+        if (unsubGifts) unsubGifts();
       };
     }
 
@@ -146,6 +159,11 @@ export function App() {
     setWishes(updated);
   };
 
+  const handleGiftContribution = (giftId: string, amount: number) => {
+    const updated = saveGiftContribution(giftId, amount);
+    setGiftTotals(updated);
+  };
+
   // Compute live head count
   const attendingHeadcount = rsvps
     .filter(r => r.attending !== 'declined')
@@ -177,7 +195,10 @@ export function App() {
         />
 
         {/* Curated Registry Wishlist & Direct Bank Account Numbers */}
-        <GiftRegistry />
+        <GiftRegistry
+          giftTotals={giftTotals}
+          onContribute={handleGiftContribution}
+        />
 
         {/* Wishes & Prayers Guestbook */}
         <WishesPrayers

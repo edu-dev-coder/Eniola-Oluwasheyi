@@ -211,7 +211,7 @@ export const GIFT_ITEMS: GiftItem[] = [
     category: 'home',
     description: 'Contributing towards cutting-edge design workstations, fabric plotters, and studio equipment for our creative venture.',
     targetAmount: 3000000,
-    currentAmount: 1950000,
+    currentAmount: 0,
     iconName: 'ChefHat',
     image: './photos/studio-suit-standing.jpg'
   },
@@ -221,7 +221,7 @@ export const GIFT_ITEMS: GiftItem[] = [
     category: 'honeymoon',
     description: 'Help send the newlyweds on a peaceful tropical beach retreat to unwind and celebrate after the wedding festivities.',
     targetAmount: 4000000,
-    currentAmount: 2650000,
+    currentAmount: 0,
     iconName: 'Plane',
     image: './photos/outdoor-walking.jpg'
   },
@@ -231,7 +231,7 @@ export const GIFT_ITEMS: GiftItem[] = [
     category: 'home',
     description: 'Assisting the couple in curating a serene, designer-curated home sanctuary in which to begin marital bliss.',
     targetAmount: 2500000,
-    currentAmount: 1800000,
+    currentAmount: 0,
     iconName: 'Home',
     image: './photos/studio-suit-full.jpg'
   },
@@ -241,7 +241,7 @@ export const GIFT_ITEMS: GiftItem[] = [
     category: 'experience',
     description: 'Sponsoring romantic candlelit dinners, theater visits, and peaceful weekend getaways throughout our first year.',
     targetAmount: 1000000,
-    currentAmount: 720000,
+    currentAmount: 0,
     iconName: 'UtensilsCrossed',
     image: './photos/outdoor-close.jpg'
   }

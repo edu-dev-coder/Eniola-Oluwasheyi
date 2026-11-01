@@ -16,10 +16,16 @@ import type { GiftItem } from '../types/wedding';
 import confetti from 'canvas-confetti';
 
 interface GiftRegistryProps {
+  giftTotals?: Record<string, number>;
+  onContribute?: (giftId: string, amount: number) => void;
   onNotifyContribution?: (giftTitle: string, amount: number) => void;
 }
 
-export const GiftRegistry: React.FC<GiftRegistryProps> = () => {
+export const GiftRegistry: React.FC<GiftRegistryProps> = ({
+  giftTotals = {},
+  onContribute,
+  onNotifyContribution,
+}) => {
   const [copiedAccount, setCopiedAccount] = useState<string | null>(null);
   const [selectedGift, setSelectedGift] = useState<GiftItem | null>(null);
   const [customAmount, setCustomAmount] = useState<string>('50000');
@@ -66,6 +72,15 @@ export const GiftRegistry: React.FC<GiftRegistryProps> = () => {
   };
 
   const handleConfirmPledge = () => {
+    const amountNum = parseFloat(customAmount) || 0;
+    if (selectedGift && amountNum > 0) {
+      if (onContribute) {
+        onContribute(selectedGift.id, amountNum);
+      }
+      if (onNotifyContribution) {
+        onNotifyContribution(selectedGift.title, amountNum);
+      }
+    }
     setContributionSent(true);
     try {
       confetti({
@@ -224,7 +239,8 @@ export const GiftRegistry: React.FC<GiftRegistryProps> = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {GIFT_ITEMS.map((gift) => {
-              const progress = Math.min(100, Math.round((gift.currentAmount / gift.targetAmount) * 100));
+              const contributed = giftTotals[gift.id] || gift.currentAmount || 0;
+              const progress = Math.min(100, Math.round((contributed / gift.targetAmount) * 100));
 
               return (
                 <div
@@ -262,7 +278,7 @@ export const GiftRegistry: React.FC<GiftRegistryProps> = () => {
                       </div>
 
                       <div className="flex justify-between text-[11px] font-mono mb-4 text-stone-500">
-                        <span>Pledged: {formatNaira(gift.currentAmount)}</span>
+                        <span>Pledged: {formatNaira(contributed)}</span>
                         <span className="font-bold text-[#380A11]">{progress}%</span>
                       </div>
 

@@ -9,6 +9,8 @@ import {
   insertFirestoreRSVP,
   updateFirestoreCheckIn,
   deleteFirestoreRSVP,
+  fetchFirestoreGiftTotals,
+  recordFirestoreGiftContribution,
 } from './firebase';
 import {
   isSupabaseConfigured,
@@ -23,6 +25,54 @@ import {
 
 const RSVP_STORAGE_KEY = 'designersmeet_rsvps_v2';
 const WISHES_STORAGE_KEY = 'designersmeet_wishes_v2';
+const GIFTS_STORAGE_KEY = 'designersmeet_gift_totals_v2';
+
+export function getStoredGiftTotals(): Record<string, number> {
+  try {
+    const data = localStorage.getItem(GIFTS_STORAGE_KEY);
+    return data ? JSON.parse(data) : {};
+  } catch {
+    return {};
+  }
+}
+
+export function saveGiftContribution(
+  giftId: string,
+  amount: number,
+  contributorName?: string
+): Record<string, number> {
+  try {
+    const current = getStoredGiftTotals();
+    const updated = {
+      ...current,
+      [giftId]: (current[giftId] || 0) + amount,
+    };
+    localStorage.setItem(GIFTS_STORAGE_KEY, JSON.stringify(updated));
+
+    if (isFirebaseConfigured) {
+      recordFirestoreGiftContribution(giftId, amount, contributorName).catch((err) =>
+        console.warn('Background Firebase gift contribution error:', err)
+      );
+    }
+
+    return updated;
+  } catch (err) {
+    console.error('Failed to save gift contribution to localStorage', err);
+    return getStoredGiftTotals();
+  }
+}
+
+export async function syncRemoteGiftTotals(): Promise<Record<string, number>> {
+  const local = getStoredGiftTotals();
+  if (!isFirebaseConfigured) return local;
+
+  const remote = await fetchFirestoreGiftTotals();
+  if (remote) {
+    localStorage.setItem(GIFTS_STORAGE_KEY, JSON.stringify(remote));
+    return remote;
+  }
+  return local;
+}
 
 export function getStoredRSVPs(): GuestRSVP[] {
   try {

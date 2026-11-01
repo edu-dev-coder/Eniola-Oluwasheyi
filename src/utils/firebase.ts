@@ -268,3 +268,78 @@ export function subscribeToFirestoreRSVPs(
     return null;
   }
 }
+
+const GIFTS_COLLECTION = 'gift_contributions';
+
+/**
+ * Fetch total contributions for each gift item
+ */
+export async function fetchFirestoreGiftTotals(): Promise<Record<string, number> | null> {
+  if (!db) return null;
+  try {
+    const snapshot = await getDocs(collection(db, GIFTS_COLLECTION));
+    const totals: Record<string, number> = {};
+    snapshot.forEach((docSnap) => {
+      const data = docSnap.data();
+      const giftId = data.giftId;
+      const amount = Number(data.amount) || 0;
+      if (giftId) {
+        totals[giftId] = (totals[giftId] || 0) + amount;
+      }
+    });
+    return totals;
+  } catch (err) {
+    console.warn('Firestore fetch gift totals error:', err);
+    return null;
+  }
+}
+
+/**
+ * Record a new gift pledge/contribution in Cloud Firestore
+ */
+export async function recordFirestoreGiftContribution(
+  giftId: string,
+  amount: number,
+  contributorName?: string
+): Promise<boolean> {
+  if (!db) return false;
+  try {
+    const ref = doc(collection(db, GIFTS_COLLECTION));
+    await setDoc(ref, {
+      giftId,
+      amount,
+      contributorName: contributorName || 'Anonymous Well-Wisher',
+      createdAt: new Date().toISOString(),
+    });
+    return true;
+  } catch (err) {
+    console.warn('Firestore record gift contribution error:', err);
+    return false;
+  }
+}
+
+/**
+ * Real-time listener for gift contributions
+ */
+export function subscribeToFirestoreGiftContributions(
+  onUpdate: (totals: Record<string, number>) => void
+): Unsubscribe | null {
+  if (!db) return null;
+  try {
+    return onSnapshot(collection(db, GIFTS_COLLECTION), (snapshot) => {
+      const totals: Record<string, number> = {};
+      snapshot.forEach((docSnap) => {
+        const data = docSnap.data();
+        const giftId = data.giftId;
+        const amount = Number(data.amount) || 0;
+        if (giftId) {
+          totals[giftId] = (totals[giftId] || 0) + amount;
+        }
+      });
+      onUpdate(totals);
+    });
+  } catch (err) {
+    console.warn('Firestore gift contributions subscription error:', err);
+    return null;
+  }
+}
