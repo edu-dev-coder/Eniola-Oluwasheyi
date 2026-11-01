@@ -1,15 +1,12 @@
 /**
  * Firebase Configuration for #DesignersMeet Wedding App
- *
- * You can paste the firebaseConfig object from your Firebase Console
- * (Project Settings > General > Your apps > Web app) here,
- * or configure it via .env / Vite environment variables.
+ * Connected to project: wedding-eniola-peter
  */
 export const FIREBASE_CONFIG = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY || '',
-  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN || '',
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID || '',
-  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET || '',
-  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID || '',
-  appId: import.meta.env.VITE_FIREBASE_APP_ID || '',
+  apiKey: "AIzaSyCfWhiKNBe7UMRK4mUXaN2KY6nODJPUnUU",
+  authDomain: "wedding-eniola-peter.firebaseapp.com",
+  projectId: "wedding-eniola-peter",
+  storageBucket: "wedding-eniola-peter.firebasestorage.app",
+  messagingSenderId: "269349186941",
+  appId: "1:269349186941:web:c4f37661c4d25bb3797014"
 };
