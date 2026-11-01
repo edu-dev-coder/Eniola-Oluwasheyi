@@ -20,8 +20,11 @@ import {
   toggleCheckIn,
   getStoredWishes,
   saveWish,
-  toggleWishReaction
+  toggleWishReaction,
+  syncRemoteWishes,
+  syncRemoteRSVPs
 } from './utils/storage';
+import { supabase, isSupabaseConfigured } from './utils/supabase';
 
 export function App() {
   const [rsvps, setRsvps] = useState<GuestRSVP[]>(() => getStoredRSVPs());
@@ -37,6 +40,54 @@ export function App() {
     if (verifyParam) {
       setSecurityGateCode(verifyParam.trim().toUpperCase());
       setIsSecurityGateOpen(true);
+    }
+
+    // Sync wishes & RSVPs from Supabase cloud database
+    syncRemoteWishes().then(syncedWishes => {
+      if (syncedWishes && syncedWishes.length > 0) {
+        setWishes(syncedWishes);
+      }
+    });
+
+    syncRemoteRSVPs().then(syncedRSVPs => {
+      if (syncedRSVPs && syncedRSVPs.length > 0) {
+        setRsvps(syncedRSVPs);
+      }
+    });
+
+    // Realtime subscription if Supabase is active
+    if (isSupabaseConfigured && supabase) {
+      const client = supabase;
+      const wishesChannel = client
+        .channel('public:wishes')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'wishes' },
+          () => {
+            syncRemoteWishes().then(synced => {
+              if (synced) setWishes(synced);
+            });
+          }
+        )
+        .subscribe();
+
+      const rsvpsChannel = client
+        .channel('public:rsvps')
+        .on(
+          'postgres_changes',
+          { event: '*', schema: 'public', table: 'rsvps' },
+          () => {
+            syncRemoteRSVPs().then(synced => {
+              if (synced) setRsvps(synced);
+            });
+          }
+        )
+        .subscribe();
+
+      return () => {
+        client.removeChannel(wishesChannel);
+        client.removeChannel(rsvpsChannel);
+      };
     }
   }, []);
 
